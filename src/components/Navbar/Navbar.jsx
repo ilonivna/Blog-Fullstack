@@ -10,7 +10,7 @@ import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 export const Navbar = () => {
   return (
     <div className={styles.container}>
-        <div className={styles.socials}>
+        <div className={styles.social}>
             <Image src="/facebook.png" alt="facebook" width={24} height={24}/>
             <Image src="/instagram.png" alt="instagram" width={24} height={24}/>
             <Image src="/tiktok.png" alt="tiktok" width={24} height={24}/>
@@ -21,10 +21,9 @@ export const Navbar = () => {
         </div>
         <div className={styles.links}>
             <ThemeToggle/>
-            <Link href="/">Homepage</Link>
-            <Link href="/contact">Contact</Link>
-            <Link href="/about">About</Link>
-            <Link href="/login">Login</Link>
+            <Link href="/" className={styles.link}>Homepage</Link>
+            <Link href="/contact" className={styles.link}>Contact</Link>
+            <Link href="/about" className={styles.link}>About</Link>
             <AuthLinks/>
         </div>
         
