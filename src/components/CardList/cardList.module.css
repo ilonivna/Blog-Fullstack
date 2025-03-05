@@ -1,0 +1,10 @@
+.container {
+flex: 5;
+}
+
+.posts {
+    margin-top: 20px;
+    display: flex;
+    gap: 50px;
+    flex-direction: column;
+}

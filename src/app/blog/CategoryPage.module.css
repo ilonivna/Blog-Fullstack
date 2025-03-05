@@ -1,0 +1,20 @@
+.title{
+    background-color: rgba(255, 127, 80, 0.456);
+
+    border-radius: 20px;
+    padding: 5px 10px;
+    text-align: center;
+    text-transform: capitalize;
+margin-bottom: 30px;
+font-size: 34px;
+
+font-style: italic;
+font-weight: 200;
+padding: 10px;
+color: rgba(251, 248, 248, 0.862);
+  }
+  
+  .content{
+    display: flex;
+    gap: 50px;
+  }
