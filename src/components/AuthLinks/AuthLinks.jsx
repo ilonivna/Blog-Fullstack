@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 export const AuthLinks = () => {
 
-const status = "notAuthenticated";
+const status = "Authenticated";
 const [open, setOpen] = useState(false);
   return <>
     {status === "notAuthenticated" ? (
