@@ -5,6 +5,7 @@ import React from 'react';
 import styles from './authLinks.module.css';
 import { useState } from 'react';
 import Link from 'next/link';
+import { signOut, useSession } from "next-auth/react";
 
 //import { GiHamburgerMenu } from "react-icons/pi";
 
@@ -12,14 +13,14 @@ import Link from 'next/link';
 
 export const AuthLinks = () => {
 
-const status = "Authenticated";
+  const { status } = useSession();
 const [open, setOpen] = useState(false);
   return <>
-    {status === "notAuthenticated" ? (
+    {status === "unauthenticated" ? (
       <Link href="/login" className={styles.link}>Login</Link>
     ) : (<>
       <Link href="/write" className={styles.link}>Write</Link>
-      <span className={styles.link}>Logout</span>
+      <span className={styles.link} onClick={signOut}>Logout</span>
       </>)}
 
       <div className={styles.burger} onClick={()=>{setOpen(!open)}}>
@@ -30,12 +31,12 @@ const [open, setOpen] = useState(false);
           <Link href="/">Homepage</Link>
           <Link href="/">About</Link>
           <Link href="/">Contact</Link>
-          {status === "notAuthenticated" ? (
+          {status === "unauthenticated" ? (
             <Link href="/login">Login</Link>
           ) : (
             <>
               <Link href="/write">Write</Link>
-              <span className={styles.link}>Logout</span>
+              <span className={styles.link} onClick={signOut}>Logout</span>
             </>
           )}
         </div>
