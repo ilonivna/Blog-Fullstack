@@ -14,13 +14,13 @@ export const Card = ({key, item}) => {
       </div>
       <div className={styles.textContainer}>
         <div className={styles.detail}>
-          <span className={styles.date}>{createdAt}</span>
+          <span className={styles.date}>{createdAt.substring(0,10)}</span>
           <span className={styles.category}>{catSlug}</span>
         </div>
-        <Link href="/"><h3>{title}</h3></Link>
+        <Link href={`/posts/${slug}`}><h3>{title}</h3></Link>
         
-        <p className={styles.desc}>{desc}</p>
-        <Link href="/" className={styles.link}>Read more...</Link>
+        <p className={styles.desc}>{desc.substring(0,100)}</p>
+        <Link href={`/posts/${slug}`} className={styles.link}>Read more...</Link>
       </div>
     </div>
   );
