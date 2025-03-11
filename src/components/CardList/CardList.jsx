@@ -4,18 +4,39 @@ import { Pagination } from "../Pagination/Pagination";
 import Image from "next/image";
 import { Card } from "../Card/Card";
 
-export const CardList = () => {
+const getData = async (page) => {
+  const res = await fetch(`http://localhost:3000/api/posts?page=${page}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+   
+
+
+  return res.json();
+};
+
+export const CardList = async ({ page }) => {
+  const {posts, count} = await getData(page);
+
+  const POSTS_PER_PAGE = 2;
+
+  const hasPrev = POSTS_PER_PAGE * (page - 1) > 0;
+  const hasNext = POSTS_PER_PAGE * (page - 1) + POSTS_PER_PAGE < count;
+
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container}> 
       <h1>Recent posts</h1>
       <div className={styles.posts}>
-<Card/>
-<Card/>
-<Card/>
-<Card/>
-<Card/>
+        {posts?.map((item) => (
+          <Card item={item} key={item.id} />
+        ))}
       </div>
-      <Pagination />
+      <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev}/>
     </div>
   );
 };
