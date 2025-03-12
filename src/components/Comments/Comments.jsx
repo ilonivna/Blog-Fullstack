@@ -64,7 +64,7 @@ const handleSubmit = async ()  => {
         <div className={styles.user}>
           {item?.user?.image && (
             <Image
-              src={item.user.img}
+              src="/p1.png"
               alt=""
               width={50}
               height={50}

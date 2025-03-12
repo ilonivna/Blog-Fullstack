@@ -10,7 +10,7 @@ import { CiImageOn } from "react-icons/ci";
 import { CiVideoOn } from "react-icons/ci";
 import { CiLink } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 
