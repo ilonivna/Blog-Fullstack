@@ -5,10 +5,10 @@ import Link from "next/link";
 import React from "react";
 
 
-export const Card = ({key, item}) => {
+export const Card = ({ item}) => {
   const {title, createdAt, desc, img, catSlug, slug} = item;
   return (
-    <div className={styles.container} key={key}>
+    <div className={styles.container} key={item.id}>
       <div className={styles.imageContainer}>
         <Image src={img} alt={slug} fill className={styles.image}/>
       </div>
