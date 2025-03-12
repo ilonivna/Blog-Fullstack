@@ -14,10 +14,7 @@ export const GET = async (req, { params }) => {
       where: { email: post.userEmail },
       select: { name: true },
     });
-    
-    console.log("User data:", user);
-    
-    console.log("Fetched post:", post);
+
     
     return new NextResponse(JSON.stringify({post, user}, { status: 200 }));
   } catch (err) {

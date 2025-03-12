@@ -1,7 +1,8 @@
 import { Menu } from "@/components/Menu/Menu";
 import styles from "./SinglePostPage.module.css";
 import Image from "next/image";
-import { Comments } from "@/components/Comments/Comments";
+import Comments from "@/components/Comments/Comments";
+
 
 const getData = async (slug) => {
   const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
@@ -19,8 +20,7 @@ const getData = async (slug) => {
 const SinglePage = async ({ params }) => {
   const { slug } = params;
   const data = await getData(slug);
-  
-console.log(data);
+
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
@@ -32,7 +32,7 @@ console.log(data);
             </div>
 
             <div className={styles.userTextContainer}>
-              <span className={styles.username}>NAME HERE {data.user.name}</span>
+              <span className={styles.username}>{data.user.name}</span>
               <span className={styles.date}>{data.post.createdAt.substring(0,10)}</span>
             </div>
           </div>
@@ -47,7 +47,7 @@ console.log(data);
         
         <div className={styles.comment}>
         <div className={styles.post} dangerouslySetInnerHTML={{ __html: data.post.desc }}/>
-        <Comments />
+        <Comments postSlug={slug}/>
         </div>
 
         <Menu />
