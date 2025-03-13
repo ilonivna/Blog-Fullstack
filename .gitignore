@@ -9,6 +9,9 @@ node_modules
 /.pnp
 .pnp.js
 
+
+google-service-key.json
+
 # testing
 /coverage
 
