@@ -10,7 +10,7 @@ export const Card = ({ item}) => {
   return (
     <div className={styles.container} key={item.id}>
       <div className={styles.imageContainer}>
-        <Image src={img} alt={slug} fill className={styles.image}/>
+        {img && (<Image src={img} alt={slug} fill className={styles.image}/>)}
       </div>
       <div className={styles.textContainer}>
         <div className={styles.detail}>
