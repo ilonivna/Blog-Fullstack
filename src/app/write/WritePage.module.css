@@ -112,3 +112,16 @@ transition: background-position 1s ease-in-out;
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(39,39,82,1) 72%, rgba(0,212,255,1) 100%);
   background-position: right;
 }
+
+.loader {
+  position: absolute;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+
+}
+
+.publish:disabled {
+  background: linear-gradient(90deg, rgb(101, 100, 103) 0%, rgb(99, 99, 103) 72%, rgb(97, 97, 97) 100%);
+  background-position: right;
+}

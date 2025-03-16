@@ -103,6 +103,17 @@ a {
   color: #b3b3b1;
 }
 
-.ql-tooltip-editor, .ql-toolbar {
-display: none;
-}
+
+
+
+.ql-toolbar {
+  position: relative;
+  z-index: 9999; }
+
+
+.ql-container {
+  z-index: 1; }
+
+.ql-picker {
+  z-index: 9999; }
+

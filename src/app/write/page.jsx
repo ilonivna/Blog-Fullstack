@@ -3,8 +3,9 @@
 import React, { useState, useRef } from "react";
 import styles from "./WritePage.module.css";
 import Image from "next/image";
-// import ReactQuill from "react-quill-new";
-// import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill-new";
+import "react-quill/dist/quill.bubble.css";
+
 import { FaPlus } from "react-icons/fa6";
 import { CiImageOn } from "react-icons/ci";
 import { CiVideoOn } from "react-icons/ci";
@@ -13,14 +14,29 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import FadeLoader from "react-spinners/ClipLoader";
-import Tiptap from "@/components/Tiptap/Tiptap";
 
+
+const modules = {
+  toolbar: [
+    [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    ['bold', 'italic', 'underline'],
+    ['link', 'image'],
+    [{ 'align': [] }],
+    ['blockquote'],
+    [{ 'color': [] }, { 'background': [] }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],
+    [{ 'indent': '-1'}, { 'indent': '+1' }],
+    ['clean'],
+  ],
+};
 
 const WritePage = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // UPLOADING LOGIC
   // const fileInputRef = useRef(null);// const [file, setFile] = useState(null);
@@ -68,7 +84,7 @@ const WritePage = () => {
   const router = useRouter();
 
   if (status === "loading") {
-    return <div className={styles.loading}>Loading...</div>;
+    return  <FadeLoader/>
   }
 
   if (status === "unauthenticated") {
@@ -83,22 +99,32 @@ const WritePage = () => {
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
 
-  const handleSubmit = async () => {
-    const res = await fetch("/api/posts", {
-      method: "POST",
-      body: JSON.stringify({
-        title,
-        desc: value,
-        slug: slugify(title),
-        catSlug: catSlug || "style",
-      }),
-    });
-
-    if (res.status === 200) {
-      const data = await res.json();
-      router.push(`/posts/${data.slug}`);
-    }
-  };
+      const handleSubmit = async () => {
+        setLoading(true); 
+        try {
+          const res = await fetch("/api/posts", {
+            method: "POST",
+            body: JSON.stringify({
+              title,
+              desc: value,
+              slug: slugify(title),
+              catSlug: catSlug || "style",
+            }),
+          });
+    
+          if (res.status === 200) {
+            const data = await res.json();
+            router.push(`/posts/${data.slug}`);
+          } else {
+            alert("Something went wrong. Please try again.");
+          }
+        } catch (error) {
+          console.error("Error publishing post:", error);
+          alert("Failed to publish post.");
+        } finally {
+          setLoading(false); 
+        }
+      };
 
   return (
     <div className={styles.container}>
@@ -170,15 +196,17 @@ const WritePage = () => {
         )} */}
       </div>
       <div className={styles.editor}>
-        <Tiptap value={value} onChange={setValue}/>
-        {/* <ReactQuill
+        {loading && <FadeLoader className={styles.loader} color="orange" size={120}/>}
+        {/* <Tiptap value={value} onChange={setValue}/> */}
+        <ReactQuill
           theme="bubble"
+modules={modules}
           value={value}
           onChange={setValue}
           placeholder="Tell your story..."
-        /> */}
+        />
       </div>
-      <button className={styles.publish} onClick={handleSubmit}>
+      <button className={styles.publish} onClick={handleSubmit} disabled={loading}>
         Publish
       </button>
     </div>
