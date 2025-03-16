@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useRef  } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./WritePage.module.css";
 import Image from "next/image";
-import ReactQuill from "react-quill-new";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill-new";
+// import "react-quill/dist/quill.snow.css";
 import { FaPlus } from "react-icons/fa6";
 import { CiImageOn } from "react-icons/ci";
 import { CiVideoOn } from "react-icons/ci";
@@ -13,6 +13,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import FadeLoader from "react-spinners/ClipLoader";
+import Tiptap from "@/components/Tiptap/Tiptap";
+
 
 const WritePage = () => {
   const [open, setOpen] = useState(false);
@@ -20,9 +22,8 @@ const WritePage = () => {
   const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
 
-
   // UPLOADING LOGIC
-    // const fileInputRef = useRef(null);// const [file, setFile] = useState(null);
+  // const fileInputRef = useRef(null);// const [file, setFile] = useState(null);
   // const [uploading, setUploading] = useState(false);
   // const [imageUrl, setImageUrl] = useState("");
 
@@ -35,24 +36,24 @@ const WritePage = () => {
   //     alert("Please select a file.");
   //     return;
   //   }
-  
+
   //   setUploading(true);
-  
+
   //   const formData = new FormData();
   //   formData.append("file", file);
-  
+
   //   try {
   //     const res = await fetch("/api/upload", {
   //       method: "POST",
   //       body: formData,
   //     });
-  
+
   //     if (!res.ok) {
   //       const data = await res.json();
   //       alert(data.error || "Upload failed.");
   //       return;
   //     }
-  
+
   //     const data = await res.json();
   //     setImageUrl(data.url);
   //   } catch (error) {
@@ -89,7 +90,7 @@ const WritePage = () => {
         title,
         desc: value,
         slug: slugify(title),
-        catSlug: catSlug || "style", 
+        catSlug: catSlug || "style",
       }),
     });
 
@@ -101,11 +102,18 @@ const WritePage = () => {
 
   return (
     <div className={styles.container}>
-
-      <input type="text" placeholder="Title" className={styles.input}         onChange={(e) => setTitle(e.target.value)}/>
+      <input
+        type="text"
+        placeholder="Title"
+        className={styles.input}
+        onChange={(e) => setTitle(e.target.value)}
+      />
 
       <div className={styles.btnCont}>
-        <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
+        <select
+          className={styles.select}
+          onChange={(e) => setCatSlug(e.target.value)}
+        >
           <option value="style">style</option>
           <option value="fashion">fashion</option>
           <option value="food">food</option>
@@ -162,14 +170,17 @@ const WritePage = () => {
         )} */}
       </div>
       <div className={styles.editor}>
-        <ReactQuill
+        <Tiptap value={value} onChange={setValue}/>
+        {/* <ReactQuill
           theme="bubble"
           value={value}
           onChange={setValue}
           placeholder="Tell your story..."
-        />
+        /> */}
       </div>
-      <button className={styles.publish} onClick={handleSubmit}>Publish</button>
+      <button className={styles.publish} onClick={handleSubmit}>
+        Publish
+      </button>
     </div>
   );
 };
