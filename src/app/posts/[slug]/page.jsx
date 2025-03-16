@@ -34,6 +34,8 @@ const SinglePage = async ({ params }) => {
             <div className={styles.userTextContainer}>
               <span className={styles.username}>{data.user.name}</span>
               <span className={styles.date}>{data.post.createdAt.substring(0,10)}</span>
+              <span>Views: {data.post.views}</span>
+              <span>{data.post.catSlug}</span>
             </div>
           </div>
         </div>

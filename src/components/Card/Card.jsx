@@ -6,7 +6,7 @@ import React from "react";
 
 
 export const Card = ({ item}) => {
-  const {title, createdAt, desc, img, catSlug, slug} = item;
+  const {title, createdAt, desc, img, catSlug, slug, views} = item;
   return (
     <div className={styles.container} key={item.id}>
       <div className={styles.imageContainer}>
@@ -16,6 +16,7 @@ export const Card = ({ item}) => {
         <div className={styles.detail}>
           <span className={styles.date}>{createdAt.substring(0,10)}</span>
           <span className={styles.category}>{catSlug}</span>
+          <span>Views: {views}</span>
         </div>
         <Link href={`/posts/${slug}`}><h3>{title}</h3></Link>
         
