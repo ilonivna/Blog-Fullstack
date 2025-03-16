@@ -5,13 +5,15 @@ import { NextResponse } from "next/server";
 export const GET = async (req, { params }) => {
   const { slug } = params;
   try {
-    const post = await prisma.post.findUnique({
+    const post = await prisma.post.update({
       where: { slug },
+      data: {views: {increment: 1}},
       include: { user: { select: { name: true, email: true } } }
     });
 
     const user = await prisma.user.findUnique({
       where: { email: post.userEmail },
+ 
       select: { name: true },
     });
 
